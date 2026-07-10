@@ -13,6 +13,37 @@ const linkedin   = "https://www.linkedin.com/in/mrkedar";
 
 const resumeReady = false;          // ← change to true AFTER you upload resume.pdf
 const resumeFile  = "/resume.pdf";
+
+// ---- YOUR PROJECTS (edit text / add links here) ----
+const projects = [
+  {
+    title: "10-Year Multi-Asset Comparative Study",
+    problem: "Retail investors rarely get a rigorous, like-for-like comparison of equity, gold, and an active fund across a full market cycle.",
+    approach: "Cleaned ~2,500 daily observations per asset with Hampel filtering, then computed CAGR, rolling returns, Sharpe, beta, correlation and maximum drawdown — plus SIP vs lumpsum outcomes and lognormal scenarios out to 2034.",
+    result: "A 14-sheet decision workbook and Power BI dashboard quantifying the risk-adjusted trade-offs; scenario modeling flagged gold breaking above its 90th-percentile projection band.",
+    tools: ["Advanced Excel", "Power BI", "Risk & Return Analytics"],
+    github: "https://github.com/Kedarnath-H/sensex-gold-hdfc-flexicap-analysis",
+    report: "",
+  },
+  {
+    title: "CAMEL Analysis — Vikas Souharda Co-op Bank",
+    problem: "Judge a co-operative bank's real financial health across FY2021–FY2025, beyond the headline numbers in its annual reports.",
+    approach: "Scored Capital adequacy, Asset quality, Management efficiency, Earnings and Liquidity from primary filings into a formula-driven Excel model, with a dedicated stress-test tab.",
+    result: "Surfaced a material asset-quality gap — reported GNPA of ~1.83% against an RBI-assessed ~9.3% in FY2022-23 — the kind of divergence that changes a credit view.",
+    tools: ["Financial Statement Analysis", "Advanced Excel", "Power BI"],
+    github: "https://github.com/Kedarnath-H/CAMEL-model-analysis",
+    report: "",
+  },
+  {
+    title: "ITC Ltd. — Sell-Side Initiation",
+    problem: "Is ITC (NSE: ITC) a buy at current levels, and what intrinsic value can actually be defended?",
+    approach: "Built a full initiation as an interactive single-page report — segment analysis, a DCF with a live sensitivity heatmap, and a Beginner/Pro reading toggle for different audiences.",
+    result: "A BUY thesis with a ₹325 target price, triangulated against primary exchange filings and shareholding data.",
+    tools: ["DCF Valuation", "Equity Research", "Financial Modeling"],
+    github: "",
+    report: "",   // ← we'll fill this next (host the ITC report, then paste its link)
+  },
+];
 // ══════════════════════════════════════════════
 ---
 
@@ -41,7 +72,7 @@ const resumeFile  = "/resume.pdf";
         </ul>
 
         <div class="cta">
-          <a class="btn btn--primary" href={github} target="_blank" rel="noopener">View my work</a>
+          <a class="btn btn--primary" href="#work">View my work</a>
           {resumeReady && <a class="btn btn--ghost" href={resumeFile} target="_blank" rel="noopener">Download Resume</a>}
           <a class="btn btn--ghost" href={`mailto:${email}`}>Get in touch</a>
         </div>
@@ -53,6 +84,38 @@ const resumeFile  = "/resume.pdf";
         </div>
       </div>
     </main>
+
+    <section id="work" class="work">
+      <div class="work__inner">
+        <header class="work__head">
+          <p class="tagline">Selected Work</p>
+          <h2 class="work__title">Analysis that holds up to scrutiny</h2>
+          <p class="work__sub">Three projects that show how I move from raw data to a decision I can defend.</p>
+        </header>
+
+        <div class="grid">
+          {projects.map((proj) => (
+            <article class="card">
+              <h3 class="card__title">{proj.title}</h3>
+              <div class="card__body">
+                <p><span class="label">Problem</span>{proj.problem}</p>
+                <p><span class="label">Approach</span>{proj.approach}</p>
+                <p><span class="label result">Result</span>{proj.result}</p>
+              </div>
+              <ul class="tools">
+                {proj.tools.map((t) => <li>{t}</li>)}
+              </ul>
+              {(proj.github || proj.report) && (
+                <div class="card__links">
+                  {proj.github && <a href={proj.github} target="_blank" rel="noopener">GitHub →</a>}
+                  {proj.report && <a href={proj.report} target="_blank" rel="noopener">Read report →</a>}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
 
     <style>
       /* ---- DESIGN TOKENS (single source of colour/type) ---- */
@@ -67,12 +130,15 @@ const resumeFile  = "/resume.pdf";
         --font:      'Inter', system-ui, sans-serif;
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
       body {
         font-family: var(--font);
         color: var(--text);
         background: var(--bg);
         -webkit-font-smoothing: antialiased;
       }
+
+      /* ---- HERO ---- */
       .hero {
         min-height: 100vh;
         display: grid;
@@ -82,10 +148,7 @@ const resumeFile  = "/resume.pdf";
           radial-gradient(70% 55% at 50% 0%, rgba(16,185,129,0.10), transparent 70%),
           var(--bg);
       }
-      .hero__inner {
-        max-width: 760px;
-        animation: rise 0.7s ease both;
-      }
+      .hero__inner { max-width: 760px; animation: rise 0.7s ease both; }
       @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
       .status {
@@ -113,6 +176,42 @@ const resumeFile  = "/resume.pdf";
       .social { display: flex; gap: 22px; margin-top: 34px; }
       .social a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
       .social a:hover { color: var(--accent); }
+
+      /* ---- WORK ---- */
+      .work { padding: 8vh 6vw; max-width: 1120px; margin: 0 auto; }
+      .work__head { max-width: 640px; margin-bottom: 48px; }
+      .work__title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 6px; }
+      .work__sub { color: var(--muted); margin-top: 14px; font-size: 1.05rem; line-height: 1.6; }
+
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        display: flex; flex-direction: column;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+      .card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.4); }
+      .card__title { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+      .card__body { margin: 18px 0 20px; display: flex; flex-direction: column; gap: 14px; }
+      .card__body p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+      .label {
+        display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+        text-transform: uppercase; color: var(--text); margin-bottom: 4px;
+      }
+      .label.result { color: var(--accent); }
+
+      .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+      .tools li { font-size: 0.75rem; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; }
+
+      .card__links { display: flex; gap: 18px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+      .card__links a { color: var(--accent); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
+      .card__links a:hover { text-decoration: underline; }
+
+      @media (max-width: 520px) {
+        .grid { grid-template-columns: 1fr; }
+      }
     </style>
   </body>
 </html>
