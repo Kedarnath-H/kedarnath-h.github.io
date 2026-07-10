@@ -18,8 +18,10 @@ const resumeFile  = "/resume.pdf";
 const projects = [
   {
     title: "10-Year Multi-Asset Comparative Study",
+    metric: "2,500+",
+    metricLabel: "daily observations analysed per asset",
     problem: "Retail investors rarely get a rigorous, like-for-like comparison of equity, gold, and an active fund across a full market cycle.",
-    approach: "Cleaned ~2,500 daily observations per asset with Hampel filtering, then computed CAGR, rolling returns, Sharpe, beta, correlation and maximum drawdown — plus SIP vs lumpsum outcomes and lognormal scenarios out to 2034.",
+    approach: "Cleaned the data with Hampel filtering, then computed CAGR, rolling returns, Sharpe, beta, correlation and maximum drawdown — plus SIP vs lumpsum outcomes and lognormal scenarios to 2034.",
     result: "A 14-sheet decision workbook and Power BI dashboard quantifying the risk-adjusted trade-offs; scenario modeling flagged gold breaking above its 90th-percentile projection band.",
     tools: ["Advanced Excel", "Power BI", "Risk & Return Analytics"],
     github: "https://github.com/Kedarnath-H/sensex-gold-hdfc-flexicap-analysis",
@@ -27,18 +29,22 @@ const projects = [
   },
   {
     title: "CAMEL Analysis — Vikas Souharda Co-op Bank",
+    metric: "9.3%",
+    metricLabel: "RBI-assessed NPA vs 1.83% reported (FY23)",
     problem: "Judge a co-operative bank's real financial health across FY2021–FY2025, beyond the headline numbers in its annual reports.",
     approach: "Scored Capital adequacy, Asset quality, Management efficiency, Earnings and Liquidity from primary filings into a formula-driven Excel model, with a dedicated stress-test tab.",
-    result: "Surfaced a material asset-quality gap — reported GNPA of ~1.83% against an RBI-assessed ~9.3% in FY2022-23 — the kind of divergence that changes a credit view.",
+    result: "Surfaced a material asset-quality gap between reported and RBI-assessed NPAs — the kind of divergence that changes a credit view.",
     tools: ["Financial Statement Analysis", "Advanced Excel", "Power BI"],
     github: "https://github.com/Kedarnath-H/CAMEL-model-analysis",
     report: "",
   },
   {
     title: "ITC Ltd. — Sell-Side Initiation",
+    metric: "₹325",
+    metricLabel: "DCF target price · BUY rating",
     problem: "Is ITC (NSE: ITC) a buy at current levels, and what intrinsic value can actually be defended?",
     approach: "Built a full initiation as an interactive single-page report — segment analysis, a DCF with a live sensitivity heatmap, and a Beginner/Pro reading toggle for different audiences.",
-    result: "A BUY thesis with a ₹325 target price, triangulated against primary exchange filings and shareholding data.",
+    result: "A BUY thesis triangulated against primary exchange filings and shareholding data.",
     tools: ["DCF Valuation", "Equity Research", "Financial Modeling"],
     github: "",
     report: "",   // ← we'll fill this next (host the ITC report, then paste its link)
@@ -96,6 +102,10 @@ const projects = [
         <div class="grid">
           {projects.map((proj) => (
             <article class="card">
+              <div class="stat">
+                <span class="stat__num">{proj.metric}</span>
+                <span class="stat__label">{proj.metricLabel}</span>
+              </div>
               <h3 class="card__title">{proj.title}</h3>
               <div class="card__body">
                 <p><span class="label">Problem</span>{proj.problem}</p>
@@ -131,32 +141,17 @@ const projects = [
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
-      body {
-        font-family: var(--font);
-        color: var(--text);
-        background: var(--bg);
-        -webkit-font-smoothing: antialiased;
-      }
+      body { font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 
       /* ---- HERO ---- */
       .hero {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 6vh 6vw;
-        background:
-          radial-gradient(70% 55% at 50% 0%, rgba(16,185,129,0.10), transparent 70%),
-          var(--bg);
+        min-height: 100vh; display: grid; place-items: center; padding: 6vh 6vw;
+        background: radial-gradient(70% 55% at 50% 0%, rgba(16,185,129,0.10), transparent 70%), var(--bg);
       }
       .hero__inner { max-width: 760px; animation: rise 0.7s ease both; }
       @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-      .status {
-        display: inline-flex; align-items: center; gap: 8px;
-        font-size: 0.82rem; font-weight: 500; color: var(--muted);
-        border: 1px solid var(--border); border-radius: 999px;
-        padding: 6px 14px; margin-bottom: 28px;
-      }
+      .status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 500; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; margin-bottom: 28px; }
       .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
 
       .tagline { color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 14px; }
@@ -185,21 +180,22 @@ const projects = [
 
       .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
       .card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px;
-        display: flex; flex-direction: column;
+        background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+        display: flex; flex-direction: column; position: relative; overflow: hidden;
         transition: transform 0.2s ease, border-color 0.2s ease;
       }
+      .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.2s ease; }
       .card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.4); }
-      .card__title { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
-      .card__body { margin: 18px 0 20px; display: flex; flex-direction: column; gap: 14px; }
+      .card:hover::before { opacity: 1; }
+
+      .stat { border-left: 3px solid var(--accent); padding-left: 14px; margin-bottom: 20px; }
+      .stat__num { display: block; font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
+      .stat__label { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+      .card__title { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+      .card__body { margin: 16px 0 20px; display: flex; flex-direction: column; gap: 14px; }
       .card__body p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
-      .label {
-        display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
-        text-transform: uppercase; color: var(--text); margin-bottom: 4px;
-      }
+      .label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
       .label.result { color: var(--accent); }
 
       .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
@@ -209,9 +205,7 @@ const projects = [
       .card__links a { color: var(--accent); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
       .card__links a:hover { text-decoration: underline; }
 
-      @media (max-width: 520px) {
-        .grid { grid-template-columns: 1fr; }
-      }
+      @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
     </style>
   </body>
 </html>
