@@ -5,11 +5,14 @@
 const name     = "Kedarnath H";
 const tagline   = "Financial Analyst · FP&A · Equity Research";
 const headline  = "I turn financial data into clear, defensible decisions.";
-const subhead   = "MBA in Finance · SEBI NISM certified. I build valuation models, equity research, and Power BI dashboards that turn messy data into decisions leaders can act on.";
+const subhead   = "MBA in Finance · SEBI NISM certified. I build valuation models, equity research, and Power BI dashboards that turn raw data into decisions leaders can act on.";
 const proof     = ["10-Year Multi-Asset Study", "CAMEL Bank Analysis", "ITC Sell-Side Initiation"];
 const email     = "kedarnathgshm@gmail.com";
 const github     = "https://github.com/Kedarnath-H";
 const linkedin   = "https://www.linkedin.com/in/mrkedar";
+
+const resumeReady = false;          // ← change to true AFTER you upload resume.pdf
+const resumeFile  = "/resume.pdf";
 // ══════════════════════════════════════════════
 ---
 
@@ -39,6 +42,7 @@ const linkedin   = "https://www.linkedin.com/in/mrkedar";
 
         <div class="cta">
           <a class="btn btn--primary" href={github} target="_blank" rel="noopener">View my work</a>
+          {resumeReady && <a class="btn btn--ghost" href={resumeFile} target="_blank" rel="noopener">Download Resume</a>}
           <a class="btn btn--ghost" href={`mailto:${email}`}>Get in touch</a>
         </div>
 
