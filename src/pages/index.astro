@@ -15,11 +15,10 @@ const location   = "Bengaluru, India";
 const resumeReady = false;          // ← change to true AFTER you upload resume.pdf
 const resumeFile  = "/resume.pdf";
 
-// ---- ABOUT ----
+// ---- ABOUT (short version) ----
 const aboutPara = [
-  "I work on the questions that sit underneath a number: what it measures, what it leaves out, and whether it survives a second look. Most of my projects started as an attempt to check something I had been told was true.",
-  "That habit produced the work on this site. A co-operative bank's reported asset quality did not match the regulator's assessment. An asset that most portfolios treat as a hedge outperformed its own projection band. A large-cap consumer name looked fully priced until the cash flows were modelled properly.",
-  "I am looking for a role where that kind of scrutiny is the job — financial analysis, FP&A, or equity research. I work primarily in Excel, Power BI and SQL, and I write up findings so that someone who was not in the spreadsheet can still act on them.",
+  "I look for the story underneath a number — what it measures, what it leaves out, and whether it survives a second look. Each project on this site began as an attempt to verify something I had been told was true: a bank's reported asset quality, a hedge asset's expected behaviour, a stock's market price.",
+  "I'm looking for a role where that scrutiny is the job — financial analysis, FP&A, or equity research. I work in Excel, Power BI and SQL, and I write findings so that someone who was never in the spreadsheet can act on them.",
 ];
 
 const education = [
@@ -29,8 +28,8 @@ const education = [
 ];
 
 const skills = [
-  { group: "Analysis & Valuation", items: ["DCF Valuation", "Financial Statement Analysis", "Ratio & CAMEL Analysis", "Risk & Return Metrics", "Forecasting & Scenario Modeling"] },
-  { group: "Tools",                items: ["Advanced Excel", "Power BI (DAX, Power Query)", "SQL", "Python (basic)"] },
+  { group: "Analysis & Valuation", items: ["DCF Valuation", "Financial Statement Analysis", "Ratio & CAMEL Analysis", "Risk & Return Metrics", "Scenario Modeling"] },
+  { group: "Tools",                items: ["Advanced Excel", "Power BI · DAX · Power Query", "SQL", "Python (basic)"] },
   { group: "Reporting",            items: ["Equity Research Writing", "Executive Dashboards", "Data Visualization", "Data Cleaning"] },
 ];
 
@@ -186,7 +185,7 @@ const projects = [
           {skills.map((s) => (
             <div class="skills__group">
               <h4 class="skills__label">{s.group}</h4>
-              <ul class="skills__list">
+              <ul class="chips">
                 {s.items.map((i) => <li>{i}</li>)}
               </ul>
             </div>
@@ -217,7 +216,6 @@ const projects = [
     </footer>
 
     <style>
-      /* ---- DESIGN TOKENS ---- */
       :root {
         --bg:        #0a0e1a;
         --surface:   #111827;
@@ -232,7 +230,6 @@ const projects = [
       html { scroll-behavior: smooth; scroll-padding-top: 70px; }
       body { font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 
-      /* ---- NAV ---- */
       .nav {
         position: sticky; top: 0; z-index: 50;
         display: flex; justify-content: space-between; align-items: center;
@@ -240,14 +237,13 @@ const projects = [
         background: rgba(10,14,26,0.72); backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
       }
-      .nav__brand { color: var(--text); text-decoration: none; font-weight: 700; font-size: 0.98rem; letter-spacing: -0.01em; }
+      .nav__brand { color: var(--text); text-decoration: none; font-weight: 700; font-size: 0.98rem; }
       .nav__links { display: flex; align-items: center; gap: 6px; }
       .nav__links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 12px; border-radius: 8px; transition: color 0.15s ease; }
       .nav__links a:hover { color: var(--text); }
       .nav__cta { color: #04120c !important; background: var(--accent); font-weight: 600 !important; }
       .nav__cta:hover { opacity: 0.9; }
 
-      /* ---- HERO ---- */
       .hero {
         min-height: calc(100vh - 60px); display: grid; place-items: center; padding: 6vh 6vw;
         background: radial-gradient(70% 55% at 50% 0%, rgba(16,185,129,0.10), transparent 70%), var(--bg);
@@ -276,7 +272,6 @@ const projects = [
       .social a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
       .social a:hover { color: var(--accent); }
 
-      /* ---- WORK ---- */
       .work { padding: 8vh 6vw; max-width: 1120px; margin: 0 auto; }
       .work__head { max-width: 640px; margin-bottom: 48px; }
       .work__title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 6px; }
@@ -293,7 +288,7 @@ const projects = [
       .card:hover::before { opacity: 1; }
 
       .stat { border-left: 3px solid var(--accent); padding-left: 14px; margin-bottom: 20px; }
-      .stat__num { display: block; font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
+      .stat__num { display: block; font-size: 2.1rem; font-weight: 800; color: var(--accent); line-height: 1; }
       .stat__label { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
 
       .card__title { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
@@ -302,32 +297,35 @@ const projects = [
       .label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
       .label.result { color: var(--accent); }
 
-      .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-      .tools li { font-size: 0.75rem; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; }
+      .tools, .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+      .tools { margin-top: auto; }
+      .tools li, .chips li { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; background: var(--surface); }
 
       .card__links { display: flex; gap: 18px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
       .card__links a { color: var(--accent); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
       .card__links a:hover { text-decoration: underline; }
 
       /* ---- ABOUT ---- */
-      .about { padding: 6vh 6vw 10vh; max-width: 1120px; margin: 0 auto; border-top: 1px solid var(--border); }
-      .about__inner { display: grid; grid-template-columns: 1.6fr 1fr; gap: 60px; align-items: start; }
-      .about__title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 6px; }
-      .about__text { color: var(--muted); font-size: 1.02rem; line-height: 1.75; margin-top: 20px; }
+      .about { padding: 8vh 6vw 9vh; max-width: 1120px; margin: 0 auto; border-top: 1px solid var(--border); }
+      .about__inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 64px; align-items: start; }
+      .about__title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 6px; margin-bottom: 4px; }
+      .about__text { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-top: 18px; }
 
-      .side__head { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); margin-bottom: 22px; }
-      .about__side { padding-top: 8px; }
-      .timeline { list-style: none; display: flex; flex-direction: column; gap: 24px; }
-      .timeline__item { border-left: 2px solid var(--border); padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
-      .timeline__period { font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.03em; }
+      .side__head { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+      .about__side {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 16px; padding: 26px;
+      }
+      .timeline { list-style: none; display: flex; flex-direction: column; gap: 22px; }
+      .timeline__item { border-left: 2px solid var(--accent); padding-left: 16px; display: flex; flex-direction: column; gap: 3px; }
+      .timeline__period { font-size: 0.73rem; color: var(--accent); font-weight: 700; letter-spacing: 0.04em; }
       .timeline__title { font-size: 0.95rem; font-weight: 600; }
-      .timeline__org { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+      .timeline__org { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
 
-      .skills { margin-top: 70px; padding-top: 46px; border-top: 1px solid var(--border); }
-      .skills__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
-      .skills__label { font-size: 0.9rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; }
-      .skills__list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-      .skills__list li { font-size: 0.92rem; color: var(--muted); }
+      .skills { margin-top: 60px; }
+      .skills__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+      .skills__group { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+      .skills__label { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
 
       /* ---- CONTACT ---- */
       .contact {
@@ -341,7 +339,6 @@ const projects = [
       .contact__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
       .contact__email { color: var(--muted); margin-top: 28px; font-size: 0.9rem; }
 
-      /* ---- FOOTER ---- */
       .footer {
         padding: 30px 6vw; display: flex; flex-wrap: wrap; gap: 8px;
         justify-content: space-between; align-items: center;
@@ -350,7 +347,7 @@ const projects = [
       .footer__note { opacity: 0.7; }
 
       @media (max-width: 860px) {
-        .about__inner { grid-template-columns: 1fr; gap: 46px; }
+        .about__inner { grid-template-columns: 1fr; gap: 40px; }
       }
       @media (max-width: 600px) {
         .nav__brand { display: none; }
